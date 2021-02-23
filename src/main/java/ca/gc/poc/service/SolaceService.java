@@ -9,31 +9,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class SolaceService {
 
-    private final PublishEventHandler eventHandler = new PublishEventHandler();
-
     @Autowired
     private SpringJCSMPFactory solaceFactory;
     @Autowired
     private JCSMPProperties properties;
+    @Autowired
+    private XMLMessageProducer producer;
 
 
     public String sendMessage(SolaceMessage solaceMessage) {
 
         try {
-            final JCSMPSession session = solaceFactory.createSession();
-
-            XMLMessageProducer producer = session.getMessageProducer(eventHandler);
-
             final Topic topic = JCSMPFactory.onlyInstance().createTopic(solaceMessage.getTopic());
+            final TextMessage message = JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
 
-            TextMessage message = JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
-
+            message.setDeliveryMode(DeliveryMode.PERSISTENT);
+            message.setCorrelationKey(topic);
             message.setText(solaceMessage.getMessage());
 
             producer.send(message, topic);
-
         } catch (JCSMPException exception) {
-            return exception.getMessage();
+            String message = exception.getMessage();
+            return message;
         }
 
         return "Message sent successfully. :)";

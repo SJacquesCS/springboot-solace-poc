@@ -18,6 +18,4 @@ public class PublishEventHandler implements JCSMPStreamingPublishEventHandler {
     public void responseReceived(String s) {
         logger.info("Producer received message : " + s);
     }
-
-
 }
