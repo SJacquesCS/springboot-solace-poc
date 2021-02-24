@@ -28,5 +28,4 @@ public class SolaceConfig {
         return session.getMessageProducer(publishEventHandler);
     }
 
-
 }
