@@ -1,7 +1,10 @@
 package ca.gc.poc.config;
 
 import ca.gc.poc.utils.PublishEventHandler;
-import com.solacesystems.jcsmp.*;
+import com.solacesystems.jcsmp.JCSMPException;
+import com.solacesystems.jcsmp.JCSMPSession;
+import com.solacesystems.jcsmp.SpringJCSMPFactory;
+import com.solacesystems.jcsmp.XMLMessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,4 +27,6 @@ public class SolaceConfig {
         PublishEventHandler publishEventHandler = new PublishEventHandler();
         return session.getMessageProducer(publishEventHandler);
     }
+
+
 }
