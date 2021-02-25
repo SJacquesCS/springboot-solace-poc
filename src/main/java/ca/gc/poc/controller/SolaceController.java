@@ -24,4 +24,10 @@ public class SolaceController {
     public ResponseEntity<String> sendMessage(@RequestBody SolaceMessage solaceMessage) {
         return new ResponseEntity<>(solaceService.sendMessage(solaceMessage), HttpStatus.ACCEPTED);
     }
+
+    @PostMapping("/send-message-queue")
+    @ApiResponses(value = {@ApiResponse(code = 202, message = "Message sent successfully. :)")})
+    public ResponseEntity<String> sendMessageQueue(@RequestBody SolaceMessage solaceMessage) {
+        return new ResponseEntity<>(solaceService.sendMessageQueue(solaceMessage), HttpStatus.ACCEPTED);
+    }
 }

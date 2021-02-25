@@ -11,6 +11,7 @@ public class SolaceMessage {
     private String topic;
     private String username;
     private String password;
+    private String queueName;
 
 
 }
